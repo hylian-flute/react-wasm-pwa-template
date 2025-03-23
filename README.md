@@ -25,3 +25,9 @@ ln -s ./wasm/pkg/wasm_bg.wasm ./public/wasm_bg.wasm
 ```
 
 Edit [`src/App.tsx`](./src/App.tsx).
+
+```sh
+npm install vite-plugin-pwa -D
+```
+
+Edit [`vite.config.ts`](./vite.config.ts).
