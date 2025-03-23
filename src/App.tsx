@@ -1,10 +1,24 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import wbgInit, { InitOutput } from '../wasm/pkg/wasm';
 
 function App() {
+  const [wasm, setWasm] = useState<InitOutput | null>(null);
+
+  useEffect(() => {
+    wbgInit('/wasm_bg.wasm').then((wasm) => setWasm(wasm));
+  }, []);
+
   const [count, setCount] = useState(0)
+
+  const countUp = () => {
+    if (wasm === null) {
+      return;
+    }
+    setCount(wasm.add(count, 1));
+  }
 
   return (
     <>
@@ -18,7 +32,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button onClick={countUp}>
           count is {count}
         </button>
         <p>
